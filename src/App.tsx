@@ -1,21 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/header/index'
-import { books } from './data';
+import { books } from './components/book-list/data';
 import { booksWithImages } from './images/imagesLoader';
 import BookList from './components/book-list';
 import Book from './components/book';
 import { format } from 'path';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <Header style={{ color: "#B4BFCD", background: "#160C59" , padding: "40px" }} title="Books App"/>
+
+class App extends React.Component<any, any> {
+
+  constructor(props: any) {
+    super(props)
+
+    this.state = { books, booksWithImages }
+  }
+
+  render() {
+
+    return (
+   <div className="App">
+     <Header style={{ color: "#B4BFCD", background: "#160C59" , padding: "40px" }} title="Books App"/>
+     
+      <BookList books={this.state.booksWithImages}/>
+   </div>
+    )
+  }
+
+}
+
+
+
+
+
+
+
+// const App: React.FC = () => {
+//   return (
+//     <div className="App">
+//       <Header style={{ color: "#B4BFCD", background: "#160C59" , padding: "40px" }} title="Books App"/>
 
     
-    </div>
-  );
-}
+//     </div>
+//   );
+// }
 
 export default App;

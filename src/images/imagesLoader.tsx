@@ -1,4 +1,4 @@
-import {books} from "../data";
+import {books} from "../components/book-list/data";
 
 
 
