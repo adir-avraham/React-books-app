@@ -6,10 +6,10 @@ import React from 'react';
 export default class Book extends React.Component<any, any> {
 
     render() {
-        const { author, country, language, link, pages, title, year, image } = this.props;
+        const { author, country, language, link, pages, title, year, image, style } = this.props;
 
     return (
-        <div style={{ background: "#B4BFCD", width: "25%" ,display: "inline-block", margin: "3%"}}>
+        <div style={style}>
             <h3>{title}</h3>
             <img height="100" width="100" src={image} alt=""/>
             <div>Author: {author}</div>
