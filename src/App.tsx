@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/index'
-import { books } from './components/book-list/data';
 import { booksWithImages } from './images/imagesLoader';
 import BookList from './components/book-list';
-import Book from './components/book';
-import { format } from 'path';
+
+
 
 
 class App extends React.Component<any, any> {
@@ -13,17 +12,35 @@ class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
 
-    this.state = { books, booksWithImages }
+    this.state = { booksWithImages }
   }
 
   render() {
-
+  
     return (
-   <div className="App">
-     <Header style={{ color: "#B4BFCD", background: "#160C59" , padding: "40px" }} title="Books App"/>
+      <div className="App">
+        <Header style={{ color: "#B4BFCD", background: "#160C59", padding: "40px" }} title="Books App" />
+
+        <Header title="Search" />
+        <div> Show Hebrew books
+                  <input type="checkbox" onChange={() => {
+            const filteredHebrew = booksWithImages.filter((book: any) => { return book.language.toLowerCase() === "hebrew"})           
+            this.setState({ booksWithImages: filteredHebrew})
+          }} />
+        </div>
+        <div>
+          <input placeholder="search by name" onChange={(e) => {
+            const searchValue = e.target.value;
+            const filteredData = booksWithImages.filter((book: any) => { return book.title.toLowerCase().includes(searchValue) })
+            this.setState({ booksWithImages: filteredData })
+          }} />
+        </div>
+
      
-      <BookList books={this.state.booksWithImages}/>
-   </div>
+
+        <BookList books={this.state.booksWithImages} />
+
+      </div>
     )
   }
 
@@ -35,14 +52,5 @@ class App extends React.Component<any, any> {
 
 
 
-// const App: React.FC = () => {
-//   return (
-//     <div className="App">
-//       <Header style={{ color: "#B4BFCD", background: "#160C59" , padding: "40px" }} title="Books App"/>
-
-    
-//     </div>
-//   );
-// }
 
 export default App;
