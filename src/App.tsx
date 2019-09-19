@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/index'
-import { booksWithImages } from './images/imagesLoader';
+//import { booksWithImages } from './images/imagesLoader';
 import BookList from './components/book-list';
-
+import {books} from './components/book-list/data'
 
 const style = { background: "#B4BFCD", width: "25%" ,display: "inline-block", margin: "3%"}
 
@@ -12,11 +12,11 @@ class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
 
-    this.state = { booksWithImages, style }
+    this.state = { books, style }
   }
 
   render() {
-    const {booksWithImages, style} = this.state
+    const {books, style} = this.state
     return (
       <div className="App">
         <Header style={{ color: "#B4BFCD", background: "#160C59", padding: "40px" }} title="Books App" />
@@ -24,10 +24,10 @@ class App extends React.Component<any, any> {
         <Header title="Search" />
         <div> Show Hebrew books
                   <input type="checkbox" onChange={() => {
-            const filteredHebrew = booksWithImages.filter((book: any) => { return book.language.toLowerCase() === "hebrew"})  
+            const filteredHebrew = books.filter((book: any) => { return book.language.toLowerCase() === "hebrew"})  
             const newStyle = { opacity: 0.2, background: "#B4BFCD", width: "25%" ,display: "inline-block", margin: "3%"}     
                 
-            this.setState({ booksWithImages: filteredHebrew, style: newStyle })
+            this.setState({ books: filteredHebrew, style: newStyle })
             
 
           }} />
@@ -35,14 +35,14 @@ class App extends React.Component<any, any> {
         <div>
           <input placeholder="search by name" onChange={(e) => {
             const searchValue = e.target.value;
-            const filteredData = booksWithImages.filter((book: any) => { return book.title.toLowerCase().includes(searchValue) })
-            this.setState({ booksWithImages: filteredData })
+            const filteredData = books.filter((book: any) => { return book.title.toLowerCase().includes(searchValue) })
+            this.setState({ books: filteredData })
           }} />
         </div>
 
      
 
-        <BookList books={booksWithImages} style={style} />
+        <BookList books={books} style={style} />
 
       </div>
     )
