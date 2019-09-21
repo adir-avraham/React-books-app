@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Header from './components/header/index'
 import { booksWithImages } from './images/imagesLoader';
 import BookList from './components/book-list';
-
+import Header from './components/header/index'
+import Search from './/components/search'
 
 
 //const newStyle = { opacity: 0.2, background: "#B4BFCD", width: "25%" ,display: "inline-block", margin: "3%"}     
@@ -22,10 +22,10 @@ class App extends React.Component<any, any> {
        }
   }
 
-  searchOperation(searchText: string, inHebrew: boolean): void {
+  searchOperation = (searchText: string, inHebrew: boolean): void => {
 
     const {fullBookList} = this.state;
-    console.log(searchText, inHebrew)
+
 
     const filteredData = fullBookList.filter((book: any) => { 
     const isInHebrew = inHebrew ? book.language.toLowerCase() === "hebrew" : true
@@ -37,27 +37,16 @@ class App extends React.Component<any, any> {
   }
 
   render() {
-    const {style, filteredBookList } = this.state
+    const {style, filteredBookList, searchValue, inHebrew } = this.state
+    const searchProps = {searchOperation: this.searchOperation, inHebrew, searchValue}
+
+   
     return (
       <div className="App">
         <Header style={{ color: "#B4BFCD", background: "#160C59", padding: "40px" }} title="Books App" />
 
         <Header title="Search" />
-        <div> Show Hebrew books
-                  <input type="checkbox" onChange={(e) => {
-                  const inHebrew = e.target.checked;
-                     const {searchValue} = this.state; 
-                  this.searchOperation(searchValue, inHebrew) 
-          }} />
-
-        </div>
-        <div>
-          <input placeholder="search by name" value={this.state.searchValue} onChange={(e) => {
-            const searchValue = e.target.value;
-            const { inHebrew } = this.state;
-            this.searchOperation(searchValue, inHebrew)
-          }} />
-        </div>
+        <Search {...searchProps}/>
 
      
 
