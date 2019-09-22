@@ -1,8 +1,9 @@
-import React from 'react';
 import './App.css';
 import { booksWithImages } from './images/imagesLoader';
 import BookList from './components/book-list';
+import CreateBook from './components/create-book'
 import Header from './components/header/index'
+import React from 'react';
 import Search from './/components/search'
 
 
@@ -43,14 +44,6 @@ class App extends React.Component<any, any> {
     const {style, filteredBookList, searchValue, inHebrew, fullBookList } = this.state
     const searchProps = {lang: this.state.lang, languages: getLanguages(fullBookList), searchOperation: this.searchOperation, inHebrew, searchValue}
     
-   
-    
-  // const listOflanguages = fullBookList.reduce((calc: any, currentValue: any)=>{ return
-  //   { ...calc,[currentValue.language]: currentValue.language  }
-  // },{})
-  
-  // console.log("list of lang=>" , listOflanguages)
-
     
     
     return (
@@ -58,11 +51,15 @@ class App extends React.Component<any, any> {
         <Header style={{ color: "#B4BFCD", background: "#160C59", padding: "40px" }} title="Books App" />
 
         <Header title="Search" />
+        <CreateBook addBookToList={(book: any)=>{
+        const newData = [...fullBookList, { ...book, inHebrew: true }];
+        this.setState({ filteredBookList: newData, fullBookList: newData })
+          
+        }}/>
+         
         <Search {...searchProps}/>
 
-        
-
-    
+       
       
         <BookList books={filteredBookList} style={style} />
 
@@ -77,7 +74,6 @@ function getLanguages(books: Array<any>) {
   return Object.keys(books.reduce((allCats, book: any) => {
     return { ...allCats, [book.language]: true }
   }, { "All": true }))
-  
 }
 
 
